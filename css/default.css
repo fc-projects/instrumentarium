@@ -1,0 +1,227 @@
+.objlineimg
+{
+	display: inline-block;
+	margin: 10px;
+	height: 130px;
+	vertical-align: top;
+}
+
+.objlinetext
+{
+	display: inline-block;
+	margin: 10px;
+	vertical-align: top;
+}
+
+.objtextname
+{
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
+.objtextelt
+{
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.objtexteltwarn
+{
+	font-size: 14px;
+	line-height: 18px;
+	color: red;
+}
+
+.usrlineimg
+{
+	display: inline-block;
+	margin: 10px;
+	height: 130px;
+	vertical-align: top;
+}
+
+.usrlinetext
+{
+	display: inline-block;
+	margin: 10px;
+	vertical-align: top;
+}
+
+.usrtextname
+{
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
+.usrtextelt
+{
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.usrborrowheader
+{
+	font-size: 14px;
+	line-height: 18px;
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+	color: red;
+	font-weight: bold;
+}
+
+.usrborrowpic
+{
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+}
+
+.usrborrowname
+{
+	font-size: 14px;
+	line-height: 18px;
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+}
+
+.usrborrowtxtelt
+{
+	font-size: 12px;
+	line-height: 14px;
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+}
+
+.objborrowheader
+{
+	font-size: 14px;
+	line-height: 18px;
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+	color: red;
+	font-weight: bold;
+}
+
+.objborrowpic
+{
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+}
+
+.objborrowname
+{
+	font-size: 14px;
+	line-height: 18px;
+	vertical-align: middle;
+	padding: 1px 10px 1px 10px;
+}
+
+.picimg
+{
+	display: inline-block;
+	margin: 10px;
+	vertical-align: middle;
+}
+
+.piclegend
+{
+	display: inline-block;
+	margin: 10px;
+	font-size: 12px;
+	line-height: 14px;
+	width: 150px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.histlineimg
+{
+	display: inline-block;
+	margin: 10px;
+	vertical-align: middle;
+}
+
+.histlinetext
+{
+	vertical-align: middle;
+}
+
+.histtextdate
+{
+	display: inline-block;
+	margin: 10px;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.histtextred
+{
+	display: inline-block;
+	margin: 10px;
+	color: red;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.histtextname
+{
+	display: inline-block;
+	margin: 10px;
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
+.histtextelt
+{
+	display: inline-block;
+	margin: 10px;
+	font-size: 12px;
+	line-height: 14px;
+}
+
+.histlineimg2
+{
+	display: inline-block;
+	margin: 10px;
+	vertical-align: middle;
+}
+
+.histlinetext2
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.histtextdate2
+{
+	margin: 10px;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.histtextred2
+{
+	display: inline-block;
+	margin: 10px;
+	color: red;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.histtextname2
+{
+	margin: 0px 10px 0px 10px;
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: bold;
+}
+
+.histtextelt2
+{
+	margin: 0px 10px 0px 10px;
+	font-size: 12px;
+	line-height: 14px;
+}
+
