@@ -16,7 +16,6 @@ function templateUserHistory(obj)
 	var ret;
 	
 	//retrieve object from the object list
-	var object = $$("olist").getItem(obj.objid);
 	var out_date_str = (new Date(obj.out_date)).toLocaleString();
 	
 	var return_date_str = "Pas encore rendu";
@@ -30,10 +29,10 @@ function templateUserHistory(obj)
 	ret +=								"<div class='histlinetext'>";
 	ret +=									"<div class='histtextdate'>" + out_date_str + "</div>";
 	ret +=									"<div class='webix_icon fa-share'></div>";
-	ret +=									"<img class='histlineimg' height='30' src='" + object.pic + "'>";
-	ret +=									"<div class='histtextname'>" + object.name + "</div>";
-	if(object.ref != "") ret +=				"<div class='histtextelt'>" + object.ref + "</div>";
-	if(object.serial != "") ret +=			"<div class='histtextelt'>" + object.serial + "</div>";
+	ret +=									"<img class='histlineimg' height='30' src='" + obj.pic + "'>";
+	ret +=									"<div class='histtextname'>" + obj.name + "</div>";
+	if(obj.ref != "") ret +=				"<div class='histtextelt'>" + obj.ref + "</div>";
+	if(obj.serial != "") ret +=			"<div class='histtextelt'>" + obj.serial + "</div>";
 	ret +=								"</div>";
 	ret +=								"<div class='histlinetext'>";
 	if(obj.return_date != null) ret +=		"<div class='histtextdate'>" + return_date_str + "</div>";

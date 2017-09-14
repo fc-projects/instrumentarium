@@ -19,7 +19,7 @@ function handleUsrCtxMenuClick(id, e, node)
 		$$("usr_hist_start_date").setValue(new Date(Date.now() - 604800000)); //now - 1 week
 		$$("usr_hist_end_date").setValue(new Date());
 		$$("usr_hist_list").clearAll();
-		$$("usr_hist_list").load("rest/index.php?/users/" + usrId + "/history");
+		$$("usr_hist_list").load("rest/index.php?/users/" + usrId + "/history", userHistoryDataLoaded);
 		$$("usr_hist_popup").show();
 	}
 	
@@ -30,6 +30,11 @@ function handleUsrCtxMenuClick(id, e, node)
 			webix.ajax().put("rest/index.php?/objects/" + objId + "/return", null, borrowActionDone);
 		}
 	}*/
+}
+
+function userHistoryDataLoaded(text, data, http_request)
+{
+	usrHistFilterList();
 }
 
 webix.ready(function()

@@ -91,8 +91,6 @@ function templateHistory(obj)
 	var ret;
 	
 	//retrieve object from the object list
-	var object = $$("olist").getItem(obj.objid);
-	var user = $$("ulist").getItem(obj.usrid);
 	var out_date_str = (new Date(obj.out_date)).toLocaleString();
 	
 	var return_date_str = "Pas encore rendu";
@@ -119,16 +117,16 @@ function templateHistory(obj)
 	if(obj.return_date != null)	ret+=				"<div class='webix_icon fa-share fa-rotate-180'></div>";
 	ret +=										"</div>";
 	ret +=									"</div>";
-	ret +=									"<img class='histlineimg2' height='65' src='" + object.pic + "'>";
+	ret +=									"<img class='histlineimg2' height='65' src='" + obj.objpic + "'>";
 	ret +=									"<div class='histlinetext2'>";
-	ret +=										"<div class='histtextname2'>" + object.name + "</div>";
-	if(object.ref != "") ret +=					"<div class='histtextelt2'>" + object.ref + "</div>";
-	if(object.serial != "") ret +=				"<div class='histtextelt2'>" + object.serial + "</div>";
+	ret +=										"<div class='histtextname2'>" + obj.objname + "</div>";
+	if(obj.objref != "") ret +=					"<div class='histtextelt2'>" + obj.objref + "</div>";
+	if(obj.objserial != "") ret +=				"<div class='histtextelt2'>" + obj.objserial + "</div>";
 	ret +=									"</div>";
 	ret +=									"<div class='webix_icon fa-exchange'></div>";
-	ret +=									"<img class='histlineimg2' height='65' src='" + user.pic + "'>";
+	ret +=									"<img class='histlineimg2' height='65' src='" + obj.usrpic + "'>";
 	ret +=									"<div class='histlinetext2'>";
-	ret +=										"<div class='histtextname2'>" + user.name + "</div>";
+	ret +=										"<div class='histtextname2'>" + obj.usrname + "</div>";
 	ret +=									"</div>";
 	
 	ret +=								"</div>";

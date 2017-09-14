@@ -16,7 +16,6 @@ function templateObjectHistory(obj)
 	var ret;
 	
 	//retrieve user from the user list
-	var user = $$("ulist").getItem(obj.usrid);
 	var out_date_str = (new Date(obj.out_date)).toLocaleString();
 	
 	var return_date_str = "Pas encore rendu";
@@ -30,8 +29,8 @@ function templateObjectHistory(obj)
 	ret +=								"<div class='histlinetext'>";
 	ret +=									"<div class='histtextdate'>" + out_date_str + "</div>";
 	ret +=									"<div class='webix_icon fa-share'></div>";
-	ret +=									"<img class='histlineimg' height='30' src='" + user.pic + "'>";
-	ret +=									"<div class='histtextname'>" + user.name + "</div>";
+	ret +=									"<img class='histlineimg' height='30' src='" + obj.pic + "'>";
+	ret +=									"<div class='histtextname'>" + obj.name + "</div>";
 	ret +=								"</div>";
 	ret +=								"<div class='histlinetext'>";
 	if(obj.return_date != null) ret +=		"<div class='histtextdate'>" + return_date_str + "</div>";

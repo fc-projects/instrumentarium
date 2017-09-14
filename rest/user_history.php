@@ -6,9 +6,10 @@
 	{
 		$brwList = array();
 		$db = new SQLite3('../db/biblio.db');
-		$query = "	SELECT		id, objid, out_date, return_date
-					FROM		Borrow
-					WHERE 		usrid = '" . params(0) . "';";
+		$query = "	SELECT		Borrow.id, Object.name, Object.pic, Object.ref, Object.serial, out_date, return_date
+					FROM		Borrow, Object
+					WHERE		Object.id = objid
+					AND 		usrid = '" . params(0) . "';";
 		
 		$results = $db->query($query);
 		while ($row = $results->fetchArray(SQLITE3_ASSOC))

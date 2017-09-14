@@ -8,12 +8,12 @@ function handleMainMenuClick(id, e, node)
 	{
 		$$("hist_start_date").setValue(new Date(Date.now() - 604800000)); //now - 1 week
 		$$("hist_end_date").setValue(new Date());
-		$$("hlist").load("rest/index.php?/borrows");
+		$$("hlist").load("rest/index.php?/borrows", histLoaded);
 		$$("historylayout").show();
 	}
 	else if(id == 3)
 	{
-		$$("oclist").load("rest/index.php?/objects/categories");
+		$$("oclist").load("rest/index.php?/objects/categories", objCatLoaded);
 		$$("configlayout").show();
 	}
 	else
@@ -22,6 +22,16 @@ function handleMainMenuClick(id, e, node)
 	}
 	
 	$$("mainmenu").hide();
+}
+
+function objCatLoaded(text, data, http_request)
+{
+	
+}
+
+function histLoaded(text, data, http_request)
+{
+	histFilterList();
 }
 
 webix.ready(function()

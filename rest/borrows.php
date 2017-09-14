@@ -7,12 +7,18 @@
 	{
 		$brwList = array();
 		$db = new SQLite3('../db/biblio.db');
-		$query = "	SELECT	id,
-							objid,
-							usrid,
+		$query = "	SELECT	Borrow.id,
+							Object.name as objname,
+							Object.ref as objref,
+							Object.serial as objserial,
+							Object.pic as objpic,
+							User.name as usrname,
+							User.pic as usrpic,
 							out_date,
 							return_date
-					FROM	Borrow;	";
+					FROM	Borrow, Object, User
+					WHERE	Object.id = objid
+					AND		User.id = usrid;	";
 		
 		$results = $db->query($query);
 		while ($row = $results->fetchArray(SQLITE3_ASSOC))
