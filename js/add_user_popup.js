@@ -14,14 +14,20 @@ function AddUser()
 		email: $$("usr_add_form_email").getValue()
 	};
 	
+	$$("loading_popup").show();
 	webix.ajax().post("rest/index.php?/users", dataToPost, AddUserDone);
 }
 
-function AddUserDone()
+function AddUserDone(text, data)
 {
 	//update list and close popup
-	$$("ulist").load("rest/index.php?/users");
+	$$("ulist").load("rest/index.php?/users/" + data.json().usrid, AddUserReloadingDone);
+}
+
+function AddUserReloadingDone()
+{
 	$$("ulist").refresh();
+	$$("loading_popup").hide();
 	$$("usr_add_popup").hide();
 }
 

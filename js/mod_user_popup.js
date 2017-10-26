@@ -35,15 +35,21 @@ function ModifUser()
 			email: $$("usr_mod_form_email").getValue()
 		};
 		
+		$$("loading_popup").show();
 		webix.ajax().put("rest/index.php?/users/" + to_modif, dataToPut, ModifUserDone);
 	}
 }
 
-function ModifUserDone()
+function ModifUserDone(text, data)
 {
 	//update list and close popup
-	$$("ulist").load("rest/index.php?/users");
+	$$("ulist").load("rest/index.php?/users/" + data.json().usrid, ModifUserReloadingDone);
+}
+
+function ModifUserReloadingDone()
+{
 	$$("ulist").refresh();
+	$$("loading_popup").hide();
 	$$("usr_mod_popup").hide();
 }
 

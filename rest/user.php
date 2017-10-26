@@ -7,14 +7,16 @@
 	function user_get()
 	{
 		$db = new SQLite3('../db/biblio.db');
-		$query = "	SELECT	id,
-							name,
-							pic,
-							type,
-							phone,
-							email
-					FROM	User
-					WHERE 	id = '" . params(0) . " ';	";
+		$query = "	SELECT	User.id,
+							User.name,
+							User.pic,
+							User.type,
+							UserType.name AS typeStr,
+							User.phone,
+							User.email
+					FROM	User,UserType
+					WHERE	User.id = '" . params(0) . " '
+					AND 	User.type = UserType.id;	";
 		
 		$results = $db->query($query);
 		
@@ -26,6 +28,20 @@
 				if(!$usr)
 				{
 					halt(NOT_FOUND, "provide an existing id");
+				}
+				else
+				{
+					$usr["borrowed"] = [];
+					$query2 = "	SELECT	objid
+								FROM	Borrow
+								WHERE	return_date IS NULL
+								AND		usrid = '" . $usr["id"] . "'; ";
+					
+					$results2 = $db->query($query2);
+					while ($brwo = $results2->fetchArray(SQLITE3_ASSOC))
+					{
+						$usr["borrowed"][] = $brwo;
+					}
 				}
 			}
 			else
@@ -68,7 +84,8 @@
 			}
 			else
 			{
-				return "ok";
+				$retData['usrid'] = params(0);
+				return json_encode($retData);
 			}
 		}
 		else

@@ -9,18 +9,43 @@ function objectDroppedOnUser(context, evt)
 			usrid: context.target
 		};
 		
+		$$("loading_popup").show();
 		webix.ajax().post("rest/index.php?/borrows", dataToPost, borrowActionDone);
 	}
 	
 	return false; //prevent the original action which tries to copy the element inside the list
 }
 
-function borrowActionDone()
+var borrowObjAndUsrDataLoaded = 0;
+
+function borrowActionDone(text, data)
 {
-	$$("olist").load("rest/index.php?/objects");
-	$$("olist").refresh();
-	$$("ulist").load("rest/index.php?/users");
-	$$("ulist").refresh();
+	borrowObjAndUsrDataLoaded = 0;
+	$$("olist").load("rest/index.php?/objects/" + data.json().objid, borrowReloadingObjectDone);
+	$$("ulist").load("rest/index.php?/users/" + data.json().usrid, borrowReloadingUserDone);
+}
+
+function borrowReloadingObjectDone()
+{
+	borrowObjAndUsrDataLoaded++;
+	if(borrowObjAndUsrDataLoaded == 2)
+	{
+		borrowRealoadingDone();
+	}
+}
+
+function borrowReloadingUserDone()
+{
+	borrowObjAndUsrDataLoaded++;
+	if(borrowObjAndUsrDataLoaded == 2)
+	{
+		borrowRealoadingDone();
+	}
+}
+
+function borrowRealoadingDone()
+{
+	$$("loading_popup").hide();
 }
 
 function objectStartDragging(context, evt)

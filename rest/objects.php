@@ -71,7 +71,14 @@
 			}
 			else
 			{
-				return "ok";
+				$query2 = "	SELECT	MAX(id)
+							FROM	Object";
+				$results2 = $db->query($query2);
+				$maxid = $results2->fetchArray(SQLITE3_NUM);
+				
+				$retData['objid'] = $maxid[0];
+				
+				return json_encode($retData);
 			}
 		}
 		else

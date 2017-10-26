@@ -52,7 +52,16 @@
 		}
 		else
 		{
-			return "ok";
+			$query2 = "	SELECT 	objid,
+								usrid
+						FROM 	Borrow
+						WHERE	return_date = '" . $curDateTime . "'
+						AND 	objid = '" . params(0) . " ';	";
+			
+			$results2 = $db->query($query2);
+			$row2 = $results2->fetchArray(SQLITE3_ASSOC);
+			
+			return json_encode($row2);
 		}
 	}
 

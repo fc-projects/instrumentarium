@@ -47,7 +47,9 @@
 			}
 			else
 			{
-				return "ok";
+				$retData['objid'] = $_POST['objid'];
+				$retData['usrid'] = $_POST['usrid'];
+				return json_encode($retData);
 			}
 		}
 		else

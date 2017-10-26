@@ -1,11 +1,13 @@
+
 function updateListsTemplates()
 {
+	//apply templates
 	$$("olist").define("template", templateObjectsList);
 	$$("ulist").define("template", templateUsersList);
+	$$("olist").refresh();
+	$$("ulist").refresh();
 	
-	//apply default sorting
-	$$("olist").sort("name", "asc", "string");
-	$$("ulist").sort("name", "asc", "string");
+	$$("loading_popup").hide();
 }
 
 var allDataLoaded = 0;
@@ -13,6 +15,8 @@ var allDataLoaded = 0;
 function objectsListLoaded()
 {
 	allDataLoaded++;
+	
+	$$("olist").sort("name", "asc", "string");
 	
 	if(allDataLoaded == 2)
 	{
@@ -24,6 +28,8 @@ function objectsListLoaded()
 function usersListLoaded()
 {
 	allDataLoaded++;
+	
+	$$("ulist").sort("name", "asc", "string");
 	
 	if(allDataLoaded == 2)
 	{
@@ -173,8 +179,7 @@ webix.ready(function()
 					{
 						height: 'auto'
 					},
-					select:true,
-					url: "rest/index.php?/objects",
+					select: true,
 					drag: "source",
 					multiselect: false,
 					onContext:{}
@@ -207,8 +212,7 @@ webix.ready(function()
 					{
 						height: 'auto'
 					},
-					select:true,
-					url: "rest/index.php?/users",
+					select: true,
 					drag: "target",
 					multiselect: false,
 					onContext:{}
@@ -240,7 +244,7 @@ webix.ready(function()
 				{
 					height: 'auto'
 				},
-				select:false
+				select: false
 			}]
 		},
 		{
@@ -266,14 +270,14 @@ webix.ready(function()
 				{
 					height: 'auto'
 				},
-				select:true,
+				select: true,
 				multiselect: false
 			}]
 		}]
 	});
 	
-	$$("olist").attachEvent("onAfterLoad", objectsListLoaded);
-	$$("ulist").attachEvent("onAfterLoad", usersListLoaded);
+	$$("olist").load("rest/index.php?/objects", objectsListLoaded);
+	$$("ulist").load("rest/index.php?/users", usersListLoaded);
 	
 	$$("hist_start_date").attachEvent("onChange", histFilterList);
 	$$("hist_end_date").attachEvent("onChange", histFilterList);

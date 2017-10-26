@@ -43,15 +43,21 @@ function ModifObject()
 			can_out: $$("obj_mod_form_can_out").getValue()
 		};
 		
+		$$("loading_popup").show();
 		webix.ajax().put("rest/index.php?/objects/" + to_modif, dataToPut, ModifObjectDone);
 	}
 }
 
-function ModifObjectDone()
+function ModifObjectDone(text, data)
 {
 	//update list and close popup
-	$$("olist").load("rest/index.php?/objects");
+	$$("olist").load("rest/index.php?/objects/" + data.json().objid, ModifObjectReloadingDone);
+}
+
+function ModifObjectReloadingDone()
+{
 	$$("olist").refresh();
+	$$("loading_popup").hide();
 	$$("obj_mod_popup").hide();
 }
 

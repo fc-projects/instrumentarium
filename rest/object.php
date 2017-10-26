@@ -30,6 +30,23 @@
 				{
 					halt(NOT_FOUND, "provide an existing id");
 				}
+				else
+				{
+					$obj["borrower"] = "";
+					$query2 = "	SELECT		usrid
+								FROM		Borrow
+								WHERE 		objid = '" . $obj["id"] . " '
+								AND			return_date IS NULL
+								ORDER BY 	id DESC
+								LIMIT		1;";
+					
+					$results2 = $db->query($query2);
+					$brwu = $results2->fetchArray(SQLITE3_ASSOC);
+					if($brwu)
+					{
+						$obj["borrower"] = $brwu["usrid"];
+					}
+				}
 			}
 			else
 			{
@@ -77,7 +94,8 @@
 			}
 			else
 			{
-				return "ok";
+				$retData['objid'] = params(0);
+				return json_encode($retData);
 			}
 		}
 		else

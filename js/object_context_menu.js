@@ -27,6 +27,7 @@ function handleObjCtxMenuClick(id, e, node)
 	{
 		if($$("olist").getItem(objId).borrower != "")
 		{
+			$$("loading_popup").show();
 			webix.ajax().put("rest/index.php?/objects/" + objId + "/return", null, borrowActionDone);
 		}
 	}

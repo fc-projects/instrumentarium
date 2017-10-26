@@ -1,13 +1,29 @@
 function configureUsrCtxMenu()
 {
-	/*if($$("ulist").getItem(this.getContext().id).borrowed == "")
+	var iUsr = $$("ulist").getItem(this.getContext().id);
+
+	if(iUsr.borrowed.length > 0)
 	{
-		this.hideItem("2");
+		//Fill the content of the menu with borrowed objects
+		var borrowSubmenu = this.getSubMenu("2");
+		if(borrowSubmenu)
+		{
+			borrowSubmenu.clearAll();
+			
+			var i;
+			for(i=0; i<iUsr.borrowed.length; i++)
+			{
+				var iObj = $$("olist").getItem(iUsr.borrowed[i].objid);
+				borrowSubmenu.add({id: iObj.id, value: iObj.name + " " + iObj.ref + " " + iObj.serial});
+			}
+			
+			this.showItem("2");
+		}
 	}
 	else
 	{
-		this.showItem("2");
-	}*/
+		this.hideItem("2");
+	}
 }
 
 function handleUsrCtxMenuClick(id, e, node)
@@ -23,13 +39,16 @@ function handleUsrCtxMenuClick(id, e, node)
 		$$("usr_hist_popup").show();
 	}
 	
-	/*if(id == "2") //"Return" entry in the context menu
+	
+}
+
+function handleUsrCtxSubmenuClick(id, e, node)
+{
+	if($$("olist").getItem(id).borrower != "")
 	{
-		if($$("olist").getItem(objId).borrower != "")
-		{
-			webix.ajax().put("rest/index.php?/objects/" + objId + "/return", null, borrowActionDone);
-		}
-	}*/
+		$$("loading_popup").show();
+		webix.ajax().put("rest/index.php?/objects/" + id + "/return", null, borrowActionDone);
+	}
 }
 
 function userHistoryDataLoaded(text, data, http_request)
@@ -45,7 +64,8 @@ webix.ready(function()
 		id:"usr_item_menu",
 		data:
 		[
-			{id: "1", value: "Historique d'emprunts"}
+			{id: "1", value: "Historique d'emprunts"},
+			{id: "2", value: "Rendre", submenu: []}
 		],
 		autowidth: true,
 		master: $$("ulist")
@@ -53,4 +73,6 @@ webix.ready(function()
 
 	$$("usr_item_menu").attachEvent("onBeforeShow", configureUsrCtxMenu);
 	$$("usr_item_menu").attachEvent("onItemClick", handleUsrCtxMenuClick);
+	//$$("usr_item_menu").attachEvent("onMenuItemClick", handleUsrCtxMenuClick);
+	$$("usr_item_menu").getSubMenu("2").attachEvent("onItemClick", handleUsrCtxSubmenuClick);
 });

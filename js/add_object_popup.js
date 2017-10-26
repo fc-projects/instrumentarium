@@ -19,14 +19,20 @@ function AddObject()
 		can_out: $$("obj_add_form_can_out").getValue()
 	};
 	
+	$$("loading_popup").show();
 	webix.ajax().post("rest/index.php?/objects", dataToPost, AddObjectDone);
 }
 
-function AddObjectDone()
+function AddObjectDone(text, data)
 {
 	//update list and close popup
-	$$("olist").load("rest/index.php?/objects");
+	$$("olist").load("rest/index.php?/objects/" + data.json().objid, AddObjectReloadingDone);
+}
+
+function AddObjectReloadingDone()
+{
 	$$("olist").refresh();
+	$$("loading_popup").hide();
 	$$("obj_add_popup").hide();
 }
 

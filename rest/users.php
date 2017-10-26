@@ -61,7 +61,14 @@
 			}
 			else
 			{
-				return "ok";
+				$query2 = "	SELECT	MAX(id)
+							FROM	User";
+				$results2 = $db->query($query2);
+				$maxid = $results2->fetchArray(SQLITE3_NUM);
+				
+				$retData['usrid'] = $maxid[0];
+				
+				return json_encode($retData);
 			}
 		}
 		else
