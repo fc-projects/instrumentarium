@@ -6,7 +6,7 @@ function updateListsTemplates()
 	$$("ulist").define("template", templateUsersList);
 	$$("olist").refresh();
 	$$("ulist").refresh();
-	
+
 	$$("loading_popup").hide();
 }
 
@@ -15,9 +15,7 @@ var allDataLoaded = 0;
 function objectsListLoaded()
 {
 	allDataLoaded++;
-	
-	$$("olist").sort("name", "asc", "string");
-	
+
 	if(allDataLoaded == 2)
 	{
 		updateListsTemplates();
@@ -28,9 +26,7 @@ function objectsListLoaded()
 function usersListLoaded()
 {
 	allDataLoaded++;
-	
-	$$("ulist").sort("name", "asc", "string");
-	
+
 	if(allDataLoaded == 2)
 	{
 		updateListsTemplates();
@@ -41,7 +37,7 @@ function usersListLoaded()
 function templateObjectsList(obj)
 {
 	var ret;
-	
+
 	ret =  					"<div>";
 	ret += 						"<div class='objlineimg'>";
 	ret += 							"<img height='130' src='" + obj.pic + "'>";
@@ -55,13 +51,13 @@ function templateObjectsList(obj)
 	if(obj.can_out == false) ret +=	"<div class='objtexteltwarn'>Non empruntable</div>";
 	ret += 						"</div>";
 	ret += 					"</div>";
-	
+
 	if(obj.borrower != "")
 	{
 		var item = $$("ulist").getItem(obj.borrower);
 		ret += 	"<table><tr><th class='objborrowheader' colspan='2'>Emprunté par :</th></tr><tr><td><img class='objborrowpic' height='30' src='" + item.pic + "'></td><td class='objborrowname'>" + item.name + "</td></tr></table>";
 	}
-	
+
 	return ret;
 }
 
@@ -69,13 +65,13 @@ function templateUsersList(obj)
 {
 	var ret;
 	var borrowSection = "";
-	
+
 	for(i=0; i<obj.borrowed.length; i++)
 	{
 		var item = $$("olist").getItem(obj.borrowed[i].objid);
 		borrowSection += "<tr><td><img class='usrborrowpic' height='30' src='" + item.pic + "'></td><td class='usrborrowname'>" + item.name + "</td><td class='usrborrowtxtelt'>" + item.ref + "</td><td class='usrborrowtxtelt'>" + item.serial + "</td></tr>";
 	}
-	
+
 	ret = 				"<div>";
 	ret += 					"<div class='usrlineimg'>";
 	ret +=						"<img height='130' src='" + obj.pic + "'>";
@@ -88,23 +84,23 @@ function templateUsersList(obj)
 	ret +=					"</div>";
 	ret +=				"</div>";
 	if(borrowSection != "") ret += "<table><tr><th class='usrborrowheader' colspan='3'>Emprunts en cours :</th></tr>" + borrowSection + "</table>";
-	
+
 	return ret;
 }
 
 function templateHistory(obj)
 {
 	var ret;
-	
+
 	//retrieve object from the object list
 	var out_date_str = (new Date(obj.out_date)).toLocaleString();
-	
+
 	var return_date_str = "Pas encore rendu";
 	if(obj.return_date != null)
 	{
 		return_date_str = (new Date(obj.return_date)).toLocaleString();
 	}
-	
+
 	//add an entry with user pic and name for the out event
 	ret = 							"<div>";
 	ret +=								"<div class='histlinetext2'>";
@@ -134,10 +130,10 @@ function templateHistory(obj)
 	ret +=									"<div class='histlinetext2'>";
 	ret +=										"<div class='histtextname2'>" + obj.usrname + "</div>";
 	ret +=									"</div>";
-	
+
 	ret +=								"</div>";
 	ret +=							"</div>";
-	
+
 	return ret;
 }
 
@@ -163,13 +159,16 @@ webix.ready(function()
 						{ view:"button", type:"icon", icon:"edit", width: 30, popup: "obj_mod_popup" },
 						{ view:"button", type:"icon", icon:"times", width: 30, popup: "obj_del_popup" },
 						{ width: 30 }, //spacer
-						{ view:"combo", id: "obj_sort_input", value: "name", width: 150,
+						{ view:"combo", id: "obj_sort_input", value: "name_asc", width: 180,
 							options: [
-								{id:"name", value:"Trier par nom"},
-								{id:"price", value:"Trier par prix"},
-								{id:"buy_date", value:"Trier par date"}]
+								{id:"name_asc", value:"Trier par nom (a→z)"},
+								{id:"name_desc", value:"Trier par nom (z→a)"},
+								{id:"price_asc", value:"Trier par prix (-→+)"},
+								{id:"price_desc", value:"Trier par prix (+→-)"},
+								{id:"buy_date_asc", value:"Trier par date (-→+)"},
+								{id:"buy_date_desc", value:"Trier par date (+→-)"}]
 						},
-						{ view:"text", id:"obj_filter_input", width: 180, placeholder: "Filtrer..." }]
+						{ view:"text", id:"obj_filter_input", width: 150, placeholder: "Filtrer..." }]
 				},
 				{
 					view:"list",
@@ -195,12 +194,14 @@ webix.ready(function()
 						{ view:"button", type:"icon", icon:"edit", width: 30, popup: "usr_mod_popup" },
 						{ view:"button", type:"icon", icon:"times", width: 30, popup: "usr_del_popup" },
 						{ width: 30 }, //spacer
-						{ view:"combo", id: "usr_sort_input", value: "name", width: 150,
+						{ view:"combo", id: "usr_sort_input", value: "name_asc", width: 180,
 							options: [
-								{"id":"name", "value":"Trier par nom"},
-								{"id":"type", "value":"Trier par type"}]
+								{"id":"name_asc", "value":"Trier par nom (a→z)"},
+								{"id":"name_desc", "value":"Trier par nom (z→a)"},
+								{"id":"type_asc", "value":"Trier par type (a→z)"},
+								{"id":"type_desc", "value":"Trier par type (z→a)"}]
 						},
-						{ view:"text", id:"usr_filter_input", width: 180, placeholder: "Filtrer..." },
+						{ view:"text", id:"usr_filter_input", width: 150, placeholder: "Filtrer..." },
 						{},
 						{ view: "icon", icon: "bars", click: function(){ if( $$("mainmenu").config.hidden) $$("mainmenu").show(); else $$("mainmenu").hide();} }]
 				},
@@ -275,10 +276,10 @@ webix.ready(function()
 			}]
 		}]
 	});
-	
+
 	$$("olist").load("rest/index.php?/objects", objectsListLoaded);
 	$$("ulist").load("rest/index.php?/users", usersListLoaded);
-	
+
 	$$("hist_start_date").attachEvent("onChange", histFilterList);
 	$$("hist_end_date").attachEvent("onChange", histFilterList);
 });
